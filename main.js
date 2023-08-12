@@ -1,20 +1,15 @@
-$('select').material_select();
-$(".button-collapse").sideNav();
-var spells = {};
-$.getJSON("resource/spells.json", function(data) {
-    spells = data;
-    generateTable();
-});
 
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.replace(new RegExp(search, 'g'), replacement);
-};
-Array.prototype.remove = function(from, to) {
-    var rest = this.slice((to || from) + 1 || this.length);
-    this.length = from < 0 ? this.length + from : from;
-    return this.push.apply(this, rest);
-};
+function getJSONData() {
+
+    // TEMP Change to allow for the webpage to be ran locally without a server
+    spells = resource_spells;
+    generateTable();
+
+    // $.getJSON("resource/spells.json", function(data) {
+    //     spells = data;
+    //     generateTable();
+    // });
+}
 
 function sl(n) {
     if(!n instanceof String) {
@@ -23,14 +18,15 @@ function sl(n) {
     return n.replaceAll(" ", "-").replaceAll("'", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("/", "");
 }
 
+
+
+// Filter Functions
+
 function hide(id) {
     $("#full-"+id).toggle();
     var e = $("#"+id);
     e.html(e.html()=="Show" ? "Hide" : "Show");
 }
-
-var sort = "name";
-var reverse = false;
 
 function noHide(element) {
     return true;
@@ -59,35 +55,41 @@ function setSort(s) {
     generateTable();
 }
 
+
+
+// Spells Functions
+
 function addSpell(s) {
     var spellbook = [];
-    if (typeof $.cookie("spellbook") == "undefined") spellbook = [];
-    else spellbook = JSON.parse($.cookie("spellbook"));
+    if (!hasData(CURRENT_DATA)) spellbook = [];
+    else spellbook = loadData(CURRENT_DATA);
     if (hasSpell(s)) spellbook.splice(spellbook.indexOf(s), 1);
     else spellbook.push(s);
-    $.cookie("spellbook", JSON.stringify(spellbook), {expires: 2147483647, path: '/'});
+    saveData(CURRENT_DATA, spellbook);
 }
 
 function hasSpell(s) {
-    if (typeof $.cookie("spellbook") == "undefined") return false;
-    var spellbook = JSON.parse($.cookie("spellbook"));
+    if (!hasData(CURRENT_DATA)) return false;
+    var spellbook = loadData(CURRENT_DATA);
     return spellbook.indexOf(s)!=-1;
 }
 
 function getSpells() {
     var spellbook = [];
-    if (!($.cookie("spellbook") === undefined)) spellbook = JSON.parse($.cookie("spellbook"));
+    if (hasData(CURRENT_DATA)) spellbook = loadData(CURRENT_DATA);
     return spellbook;
 }
 
 function clearSpells() {
     if (confirm("Are you sure you want to clear the current spellbook?")) {
-        $.cookie("spellbook", "[]", {expires: 2147483647, path: '/'});
+        saveData(CURRENT_DATA, []);
         location.reload();
     }
 }
 
-var view = "spells";
+
+
+// View Functions
 
 function changeView(s) {
     if (view=="spells") {
@@ -120,14 +122,14 @@ function saveSpellbook(name) {
         a.push(sb);
         spellbooks.push(a);
     }
-    $.cookie("spellbooks", JSON.stringify(spellbooks), {expires: 2147483647, path: '/'});
+    saveData(SPELLBOOKS_DATA, spellbooks);
     generateSpellbooks();
 }
 
 function getSpellbooks() {
     var spellbooks = {};
-    if ($.cookie("spellbooks") == undefined) spellbooks = [];
-    else spellbooks = JSON.parse($.cookie("spellbooks"));
+    if (!hasData(SPELLBOOKS_DATA)) spellbooks = [];
+    else spellbooks = loadData(SPELLBOOKS_DATA);
     return spellbooks;
 }
 
@@ -138,7 +140,7 @@ function deleteSpellbook(name) {
         var sb = spellbooks[i];
         if (sb[0]==name) spellbooks.remove(i);
     }
-    $.cookie("spellbooks", JSON.stringify(spellbooks), {expires: 2147483647, path: '/'});
+    saveData(SPELLBOOKS_DATA, spellbooks);
     generateSpellbooks();
 }
 
@@ -153,7 +155,7 @@ function loadSpellbook(name) {
     var spellbooks = getSpellbooks();
     for (var i = 0; i<spellbooks.length; i++) {
         if (spellbooks[i][0]==name) {
-            $.cookie("spellbook", JSON.stringify(spellbooks[i][1]));
+            saveData(CURRENT_DATA, spellbooks[i][1]);
             generateSpellbooks();
             return;
         }
@@ -238,3 +240,51 @@ function generateTable() {
     $(".table").html(ans);
     $(".button-collapse")
 }
+
+
+
+// Stored Data Functions
+// TEMP Changed from cookies to localStorage to allow the webpage to be ran locally without a server
+
+function hasData(name){
+    return localStorage.getItem(name) !== null;
+    //return $.cookie(name) !== undefined;
+}
+
+function loadData(name) {
+    return JSON.parse(localStorage.getItem(name));
+    //return JSON.parse($.cookie(name));
+}
+
+function saveData(name, data){
+    localStorage.setItem(name, JSON.stringify(data));
+    //$.cookie(name, JSON.stringify(data), {expires: 2147483647, path: '/'});
+}
+
+
+
+// Main Function
+
+const CURRENT_DATA = "spellbook";
+const SPELLBOOKS_DATA = "spellbooks";
+
+$('select').material_select();
+$(".button-collapse").sideNav();
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
+Array.prototype.remove = function(from, to) {
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
+};
+
+var spells = {};
+var sort = "name";
+var reverse = false;
+var view = "spells";
+
+getJSONData();

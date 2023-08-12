@@ -1,4 +1,4 @@
-{
+var resource_spells = {
   "Abi-Dalzim\u2019s Horrid Wilting": {
     "athigherlevel": "",
     "casting_time": "1 Action",
