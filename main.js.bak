@@ -72,7 +72,9 @@ function addSpell(s) {
 }
 
 function hasSpell(s) {
-    return hasData(CURRENT_DATA) && loadData(CURRENT_DATA).spells.indexOf(s) >= 0;
+    if (!hasData(CURRENT_DATA))
+        return false;
+    return loadData(CURRENT_DATA).spells.indexOf(s) >= 0;
 }
 
 function getSpells() {
@@ -98,7 +100,7 @@ function saveSpellbook(name) {
         }
     }
     if (!contains) {
-        spellbooks.push(createSpellbook(sb.spells, name));
+        spellbooks.push(createSpellbook(sb, name));
     }
     saveData(SPELLBOOKS_DATA, spellbooks);
     generateSpellbooks();
@@ -259,6 +261,13 @@ function saveData(name, data){
 
 
 
+// Temp Functions
+
+function editData(){
+    localStorage.removeItem(CURRENT_DATA);
+    localStorage.removeItem(SPELLBOOKS_DATA);
+}
+
 // Main Function
 
 const CURRENT_DATA = "spellbook";
@@ -287,4 +296,5 @@ var filters = {
 
 var view = "spells";
 
+editData();
 getJSONData();
