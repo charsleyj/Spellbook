@@ -186,7 +186,8 @@ function generateSpellNames(spellbook) {
     if (spellbook.length==0) return "<div style='text-align: center; font-size: 1.2em; font-weight: bold; font-style: italic'>No spells!</div>";
     var ans = "<ul class='list-group' style='margin: auto; text-align: center;'>";
     for (var i = 0; i<spellbook.length; i++) {
-        ans+="<li class='list-group-item' style='font-size: 1.2em; font-weight: bold; font-style: italic;'>"+spellbook[i]+"</li>";
+        var spellName = (spellbook[i] in spells) ? spells[spellbook[i]].name : spellbook[i];
+        ans+="<li class='list-group-item' style='font-size: 1.2em; font-weight: bold; font-style: italic;'>"+spellName+"</li>";
     }
     ans+="</ul>";
     return ans;
@@ -206,17 +207,19 @@ function generateTable() {
         var arr = sortable[i];
         var name = arr[0];
         var spell = arr[1];
+        var slug = arr[1].slug;
+
         ans+="<tr>";
-        ans+="<td><button type='button' data-toggle='collapse' href='#full-"+sl(name)+"' class='btn' onclick='hide(\""+sl(name)+"\");' id=\""+sl(name)+"\" >Show</button></td>";
-        //ans+="<td><a href='#' data-activates='full-"+sl(name)+"' class='button-collapse'>test</a></td>";
-        ans+="<td data-toggle='tooltip' data-placement='right' title='"+(spell["description"].length>399 ? spell["description"].substr(0,400)+"..." : spell["description"])+"'>"+name+"</td>";
+        ans+="<td><button type='button' data-toggle='collapse' href='#full-"+slug+"' class='btn' onclick='hide(\""+slug+"\");' id=\""+slug+"\" >Show</button></td>";
+        //ans+="<td><a href='#' data-activates='full-"+slug+"' class='button-collapse'>test</a></td>";
+        ans+="<td data-toggle='tooltip' data-placement='right' title='"+(spell["description"].length>399 ? spell["description"].substr(0,400)+"..." : spell["description"])+"'>"+spell.name+"</td>";
         ans+="<td>"+(spell["level"]==0 ? "Cantrip" : spell["level"])+"</td>";
         ans+="<td>"+spell["school"]+"</td>";
         ans+="<td>"+spell["classes"].toString().replaceAll(",", ", ")+"</td>";
-        ans+="<td style='text-align: center;'><button type='button' class='btn'  id='b-"+sl(name)+"' onclick='var r = \"Remove\"; var a = \"Add\"; addSpell(\""+name+"\"); $(\"#b-"+sl(name)+"\").html((hasSpell(\""+name+"\") ? r : a))'>"+(hasSpell(name) ? "Remove" : "Add")+"</button>";
+        ans+="<td style='text-align: center;'><button type='button' class='btn'  id='b-"+slug+"' onclick='var r = \"Remove\"; var a = \"Add\"; addSpell(\""+name+"\"); $(\"#b-"+slug+"\").html((hasSpell(\""+name+"\") ? r : a))'>"+(hasSpell(name) ? "Remove" : "Add")+"</button>";
         ans+="</tr>";
 
-        ans+="<tr id=\"full-"+sl(name)+"\" class='collapse' style='display:none;'><td colspan='100%' style='width:1em;' class='row'><blockquote><div class='col l8'>";
+        ans+="<tr id=\"full-"+slug+"\" class='collapse' style='display:none;'><td colspan='100%' style='width:1em;' class='row'><blockquote><div class='col l8'>";
 
         ans+="<b>Components: </b>"+spell["components"]+"<br/>";
         ans+="<b>Duration:</b> "+spell["duration"]+"<br/>";
@@ -224,7 +227,14 @@ function generateTable() {
         ans+="<b>Range: </b>"+spell["range"]+"<br/>";
         ans+="<b>Description:</b><br/>"+spell["description"]+"<br/>";
         ans+="<b>At Higher Levels:</b><br/>"+(spell["athigherlevel"].length<2 ? "No change." : spell["athigherlevel"])+"<br/>";
-        ans+="<em style='font-size: .75em;'>Source: "+spell["source"]+", page "+spell["page"]+"</em><br/>";
+        
+        ans+="<em style='font-size: .75em;'>Sources: ";
+        for(let s=0; s<spell["sources"].length; ++s){
+            ans+=spell["sources"][s]
+            ans+=(spell["pages"][s] != "") ? " (pg. " + spell["pages"][s] + ")" : "";
+            ans+=(s < spell["sources"].length-1) ? ", " : "";
+        }
+        ans+="</em><br/>";
 
         ans+="</div></blockquote></td></tr>";
         $("#sort1").show();
