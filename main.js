@@ -18,6 +18,10 @@ function sl(n) {
     return n.replaceAll(" ", "-").replaceAll("'", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("/", "");
 }
 
+function nameContains(name, search) {
+    //return name.match("/" + search + "/i");
+    return name.toLowerCase().includes(search.toLowerCase());
+}
 
 
 // Filter Functions
@@ -183,7 +187,9 @@ function generateSpellbooks() {
 }
 
 function generateSpellNames(spellbook) {
-    if (spellbook.length==0) return "<div style='text-align: center; font-size: 1.2em; font-weight: bold; font-style: italic'>No spells!</div>";
+    if (spellbook.length==0)
+        return "<div style='text-align: center; font-size: 1.2em; font-weight: bold; font-style: italic'>No spells!</div>";
+    
     var ans = "<ul class='list-group' style='margin: auto; text-align: center;'>";
     for (var i = 0; i<spellbook.length; i++) {
         var spellName = (spellbook[i] in spells) ? spells[spellbook[i]].name : spellbook[i];
@@ -198,10 +204,15 @@ function generateTable() {
     var sortable=[];
     for (var key in spells) if (spells.hasOwnProperty(key) && isShown(spells[key])) sortable.push([key, spells[key]]);
     sortable.sort(function(a, b) {
+        return (reverse ? -1 : 1) * (a[1]["name"] < b[1]["name"] ? -1 : a[1]["name"] > b[1]["name"] ? 1 : 0); //if reverse is true, sort in the opposite direction.
+    });
+    sortable.sort(function(a, b) {
         return (reverse ? -1 : 1) * (a[1][sort] < b[1][sort] ? -1 : a[1][sort] > b[1][sort] ? 1 : 0); //if reverse is true, sort in the opposite direction.
     });
 
-    var ans = "<table class='table'><thead class='thead-inverse'><tr><th>Full</th><th class='sort' onclick='setSort(\"name\");'>Name</th><th class='sort' onclick='setSort(\"level\");'>Level</th><th class='sort' onclick='setSort(\"school\");'>School</th><th class='sort' onclick='setSort(\"classes\");'>Classes</th><th>Spellbook</th></tr></thead>";
+    console.log("Number of spells: " + sortable.length);
+
+    var ans = "<table class='table'><thead class='thead-inverse'><tr><th>Full</th><th class='sort' onclick='setSort(\"name\");'>Name</th><th class='sort' onclick='setSort(\"level\");'>Level</th><th class='sort' onclick='setSort(\"school\");'>School</th><th class='sort' onclick='setSort(\"range\");'>Range</th><th class='sort' onclick='setSort(\"casting_time\");'>Casting Time</th><th class='sort' onclick='setSort(\"components\");'>Components</th><th>Spellbook</th></tr></thead>";
 
     for (var i = 0; i<sortable.length; i++)  {
         var arr = sortable[i];
@@ -215,18 +226,31 @@ function generateTable() {
         ans+="<td data-toggle='tooltip' data-placement='right' title='"+(spell["description"].length>399 ? spell["description"].substr(0,400)+"..." : spell["description"])+"'>"+spell.name+"</td>";
         ans+="<td>"+(spell["level"]==0 ? "Cantrip" : spell["level"])+"</td>";
         ans+="<td>"+spell["school"]+"</td>";
-        ans+="<td>"+spell["classes"].toString().replaceAll(",", ", ")+"</td>";
+        ans+="<td>"+spell["range"]+("range_detail" in spell ? "*" : "")+"</td>";
+        ans+="<td>"+spell["casting_time"]+"</td>";
+        ans+="<td>"+spell["components"]+("components_isCostly" in spell ? "*" : "")+"</td>";
         ans+="<td style='text-align: center;'><button type='button' class='btn'  id='b-"+slug+"' onclick='var r = \"Remove\"; var a = \"Add\"; addSpell(\""+name+"\"); $(\"#b-"+slug+"\").html((hasSpell(\""+name+"\") ? r : a))'>"+(hasSpell(name) ? "Remove" : "Add")+"</button>";
         ans+="</tr>";
 
         ans+="<tr id=\"full-"+slug+"\" class='collapse' style='display:none;'><td colspan='100%' style='width:1em;' class='row'><blockquote><div class='col l8'>";
 
-        ans+="<b>Components: </b>"+spell["components"]+"<br/>";
+        ans+="<b>Classes: </b>"+spell["classes"].toString().replaceAll(",", ", ")+"<br/>";
+        ans+="<b>Components: </b>"+spell["components"];
+        if("components_detail" in spell)
+            ans+=" <em>("+spell["components_detail"]+")</em>";
+        ans+="<br/>";
         ans+="<b>Duration:</b> "+spell["duration"]+"<br/>";
-        ans+="<b>Casting Time: </b>"+spell["casting_time"]+"<br/>";
-        ans+="<b>Range: </b>"+spell["range"]+"<br/>";
+        ans+="<b>Casting Time: </b>"+spell["casting_time"];
+        if("casting_time_detail" in spell)
+            ans+=", "+spell["casting_time_detail"];
+        ans+="<br/>";
+        ans+="<b>Range: </b>"+spell["range"];
+        if("range_detail" in spell)
+            ans+=" ("+spell["range_detail"]+")";
+        ans+="<br/>";
         ans+="<b>Description:</b><br/>"+spell["description"]+"<br/>";
-        ans+="<b>At Higher Levels:</b><br/>"+(spell["athigherlevel"].length<2 ? "No change." : spell["athigherlevel"])+"<br/>";
+        if(spell["athigherlevel"].length >= 2)
+            ans+="<b>At Higher Levels:</b><br/>"+spell["athigherlevel"]+"<br/>";
         
         ans+="<em style='font-size: .75em;'>Sources: ";
         for(let s=0; s<spell["sources"].length; ++s){

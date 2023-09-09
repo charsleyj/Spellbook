@@ -5,7 +5,7 @@ An HTML and JavaScript DnD Spellbook | https://charsleyj.github.io/Spellbook/
 
 ## Spells Data Format
 
-The data for the spells is in JSON in the below format. Below are descriptions for each of the required properties. There are also several additional properties which are currently not used:
+The data for the spells is in JSON in the below format. Below are descriptions for each of the required and optional properties, as well as several currently unused properties:
 
 ``` json
 {
@@ -36,12 +36,16 @@ The data for the spells is in JSON in the below format. Below are descriptions f
 - `pages`: (String Array) Each string is the page numbers the spell can be found in the corresponding source. If the page numbers are unknown it should be an empty string. Must have the same number of elements as `sources`.
 - `sources`: (String Array) Each string is the name of a source the spell is from. Must have the same number of elements as `pages`
 
-**Additional Properties**
+**Optional Properties**
+
+- `castingtime_detail` (String) Additional details of the casting time. Typically used for reaction spells.
+- `range_detail` (String) Additional detailed of the range. Typically used when range is Self.
+- `components_detail` (String) THe specific material components required.
+
+**Unused Properties**
 
 - `srd`: (String) Is the spell part of the SRD. Is either "5.0". "5.1" or "" if is not part of the SRD.
 - `srd_name` (String) The name of the spell as listed in the SRD.
-- `castingtime_detail` (String) Additional details of the casting time. Typically used for reaction spells.
-- `range_detail` (String) Additional detailed of the range. Typically used when range is Self.
 - `tags`: (String Array) Additional tags for the spells.
 
 

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Spells</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--<link rel="stylesheet" href="../resource/css/spells.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <style>
@@ -35,6 +36,9 @@
                 <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
 
                 <form id="sorters">
+                    <div class="col s2 m2 l2">
+                        <input type="text" id="search_name" placeholder="Name" class="validate">
+                    </div>
                     <div class="input-field col s2 m1 l1">
                         <select id="level" class="c-select">
                             <option value="-1">Level</option>
@@ -53,6 +57,7 @@
                     <div class="input-field col s2 m1 l1">
                         <select id="class" class="c-select">
                             <option>Class</option>
+                            <option>Artificer</option>
                             <option>Bard</option>
                             <option>Cleric</option>
                             <option>Druid</option>
@@ -63,7 +68,7 @@
                             <option>Wizard</option>
                         </select>
                     </div>
-                    <div class="input-field col s4 m2 l1">
+                    <div class="input-field col s2 m2 l1">
                         <select id="school" class="c-select">
                             <option>School</option>
                             <option>Abjuration</option>
@@ -76,19 +81,26 @@
                             <option>Transmutation</option>
                         </select>
                     </div>
+                    <div class="input-field col s2 m1 l1">
+                        <select id="added" class="c-select">
+                            <option>Added</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </div>
                 </form>
-                <a class="brand-logo center hide-on-med-and-down"><b><em>Spellbook</em></b></a>
+                <!--a class="brand-logo center hide-on-med-and-down"><b><em>Spellbook</em></b></a-->
                 <ul class="right hide-on-med-and-down">
                     <li><a href="#" onclick="clearSpells();">Clear Spells</a></li>
                     <li><a href="#" onclick="changeView('');" id="changeView">View Spellbook Library</a></li>
-                    <li><a href="spellbook.html">View Spell Cards</a></li>
+                    <!--li><a href="spellbook.html">View Spell Cards</a></li-->
                 </ul>
                 <ul class="side-nav" id="mobile-nav">
 					<li>
 						<div class="collection" style="margin-top: 0px;">
 							<a class="collection-item" style="height: initial;" href="#" onclick="clearSpells();">Clear Spells</a>
 							<a class="collection-item" style="height: initial;" href="#" onclick="changeView('2');" id="changeView2">View Spellbook Library</a>
-							<a class="collection-item" style="height: initial;" href="spellbook.html">View Spell Cards</a>
+							<!--a class="collection-item" style="height: initial;" href="spellbook.html">View Spell Cards</a-->
 						</div>
 					</li>
                 </ul>
@@ -113,6 +125,13 @@
         $("#class").find("option:selected").removeAttr("selected");
         $("#school").change(function() { var v = $("#school").find("option:selected").html(); setFilter("school", v=="School" ? noHide : function(e) {return e["school"]==v;});});
         $("#school").find("option:selected").removeAttr("selected");
+        $("#added").change(function() { var v = $("#added").find("option:selected").html(); setFilter("added", v=="Added" ? noHide : function(e) {
+            return hasSpell(e["name"]) == (v=="Yes");
+        });});
+        $("#added").find("option:selected").removeAttr("selected");
+        $("#search_name").keypress(function(e){
+            if(e.key == "Enter") { var v = $("#search_name").val(); setFilter("search_name", v == "" ? noHide : function(e){return nameContains(e.name, v);})}
+        });
     </script>
 </body>
 </html>
