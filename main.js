@@ -144,6 +144,15 @@ function loadSpellbook(name) {
     }
 }
 
+function saveToClipboard(){
+    let spells = getSpells().spells.sort();
+    let text = "";
+    for(let s of spells){
+        text += s + "\n";
+    }
+    navigator.clipboard.writeText(text);
+}
+
 
 
 // View Functions
@@ -169,7 +178,7 @@ function generateSpellbooks() {
 
     ans+="<div class='container'>";
 
-    ans+="<div class='card' style='text-align: center'><button type='button' class='btn' onclick='saveCurrentBook();'>Save Spellbook As...</button> <button type='button' class='btn' onclick='clearSpells();'>Clear Spells</button><h1 class='sb-name'>Current Spellbook</h1>";
+    ans+="<div class='card' style='text-align: center'><button type='button' class='btn' onclick='saveCurrentBook();'>Save Spellbook As...</button> <button type='button' class='btn' onclick='clearSpells();'>Clear Spells</button> <button type='button' class='btn' onclick='saveToClipboard();'>Save to Clipboard</button> <h1 class='sb-name'>Current Spellbook</h1>";
     ans+=generateSpellNames(spellList.spells)+"</div>";
 
     for (var i = 0; i<spellbooks.length; i++) {
@@ -190,7 +199,7 @@ function generateSpellNames(spellbook) {
     if (spellbook.length==0)
         return "<div style='text-align: center; font-size: 1.2em; font-weight: bold; font-style: italic'>No spells!</div>";
     
-    var ans = "<ul class='list-group' style='margin: auto; text-align: center;'>";
+    var ans = "<ul class='list-group' style='margin: auto; text-align: center; columns: 4; -webkit-columns: 4; -moz-columns: 4;'>";
     for (var i = 0; i<spellbook.length; i++) {
         var spellName = (spellbook[i] in spells) ? spells[spellbook[i]].name : spellbook[i];
         ans+="<li class='list-group-item' style='font-size: 1.2em; font-weight: bold; font-style: italic;'>"+spellName+"</li>";
@@ -220,10 +229,21 @@ function generateTable() {
         var spell = arr[1];
         var slug = arr[1].slug;
 
-        ans+="<tr>";
+        if(sortsWithDividers.includes(sort) && (i == 0 || sortable[i][1][sort] != sortable[i-1][1][sort])) {
+            ans += "<tr class='spell-divider'><td colspan='100%' class='row'>";
+            ans += (sort == "level" && spell[sort] == 0) ? "Cantrip" : spell[sort];
+            ans+="</td></tr>";
+        }
+
+        ans+="<tr class='spell-row" + (i % 2) + "'>";
         ans+="<td><button type='button' data-toggle='collapse' href='#full-"+slug+"' class='btn' onclick='hide(\""+slug+"\");' id=\""+slug+"\" >Show</button></td>";
         //ans+="<td><a href='#' data-activates='full-"+slug+"' class='button-collapse'>test</a></td>";
-        ans+="<td data-toggle='tooltip' data-placement='right' title='"+(spell["description"].length>399 ? spell["description"].substr(0,400)+"..." : spell["description"])+"'>"+spell.name+"</td>";
+        ans+="<td data-toggle='tooltip' data-placement='right' title='"+(spell["description"].length>399 ? spell["description"].substr(0,400)+"..." : spell["description"])+"'>"+spell.name;
+        if(spell["ritual"])
+            ans+=" <em>(Ritual)</em>";
+        if(spell["concentration"])
+            ans+=" <em>(Conc.)</em>";
+        ans+="</td>";
         ans+="<td>"+(spell["level"]==0 ? "Cantrip" : spell["level"])+"</td>";
         ans+="<td>"+spell["school"]+"</td>";
         ans+="<td>"+spell["range"]+("range_detail" in spell ? "*" : "")+"</td>";
@@ -232,7 +252,7 @@ function generateTable() {
         ans+="<td style='text-align: center;'><button type='button' class='btn'  id='b-"+slug+"' onclick='var r = \"Remove\"; var a = \"Add\"; addSpell(\""+name+"\"); $(\"#b-"+slug+"\").html((hasSpell(\""+name+"\") ? r : a))'>"+(hasSpell(name) ? "Remove" : "Add")+"</button>";
         ans+="</tr>";
 
-        ans+="<tr id=\"full-"+slug+"\" class='collapse' style='display:none;'><td colspan='100%' style='width:1em;' class='row'><blockquote><div class='col l8'>";
+        ans+="<tr id=\"full-"+slug+"\" class='collapse spell-info' style='display:none;'><td colspan='100%' style='width:1em;' class='row'><blockquote><div class='col l8'>";
 
         ans+="<b>Classes: </b>"+spell["classes"].toString().replaceAll(",", ", ")+"<br/>";
         ans+="<b>Components: </b>"+spell["components"];
@@ -259,6 +279,8 @@ function generateTable() {
             ans+=(s < spell["sources"].length-1) ? ", " : "";
         }
         ans+="</em><br/>";
+
+        ans+="Links: <a href=\"http://dnd5e.wikidot.com/spell:" + spell["slug"] + "\" target=\"_blank\">WikiDot</a><br/>"
 
         ans+="</div></blockquote></td></tr>";
         $("#sort1").show();
@@ -315,6 +337,8 @@ Array.prototype.remove = function(from, to) {
 var spells = {};
 var sort = "name";
 var reverse = false;
+var sortsWithDividers = ["level", "school", "casting_time"];
+
 var filters = {
     "default": noHide
 };
