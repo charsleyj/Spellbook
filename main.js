@@ -3,12 +3,55 @@ function getJSONData() {
 
     // TEMP Change to allow for the webpage to be ran locally without a server
     spells = resource_spells;
+    checkQueryString();
     generateTable();
 
     // $.getJSON("resource/spells.json", function(data) {
     //     spells = data;
     //     generateTable();
     // });
+}
+
+function checkQueryString(){
+    var queryStrings = new URLSearchParams(window.location.search);
+    if(!queryStrings.has("s"))
+        return;
+
+    var queriedIDs = queryStrings.get("s").split(',');
+    var queriedSpells = [];
+    for(let s of Object.keys(spells)){
+        if(queriedIDs.includes(spells[s].id))
+            queriedSpells.push(s);
+    }
+    
+    var currentSpells = getSpells().spells;
+    var force = (currentSpells.length == 0) || haveSameSpells(queriedSpells, currentSpells);
+    
+    if(force || confirm("Do you want to replace your current spells?")){
+
+        clearSpells(true);
+        for(let s of queriedSpells){
+            addSpell(s);
+        }
+        setSort("level");
+        $("#added").val("1").change();
+        $("select").material_select();
+
+        if(queriedSpells.length != queriedIDs.length)
+            alert("Only " + queriedSpells.length + " out of " + queriedIDs.length + " spells were added. There may be duplicates or unknown spell IDs.");
+    }
+}
+
+function haveSameSpells(spellsA, spellsB){
+    if(spellsA.length != spellsB.length)
+        return false;
+
+    for(let s of spellsA){
+        if(!spellsB.includes(s))
+            return false;
+    }
+
+    return true;
 }
 
 function sl(n) {
@@ -83,8 +126,8 @@ function getSpells() {
     return hasData(CURRENT_DATA) ? loadData(CURRENT_DATA) : createSpellbook([]);
 }
 
-function clearSpells() {
-    if (confirm("Are you sure you want to clear the current spellbook?")) {
+function clearSpells(force = false) {
+    if (force || confirm("Are you sure you want to clear the current spellbook?")) {
         saveData(CURRENT_DATA, createSpellbook([]));
         (view == "spells") ? generateTable() : generateSpellbooks();
     }
@@ -145,12 +188,25 @@ function loadSpellbook(name) {
 }
 
 function saveToClipboard(){
-    let spells = getSpells().spells.sort();
-    let text = "";
-    for(let s of spells){
-        text += s + "\n";
+    let currentSpells = getSpells().spells.sort();
+    currentSpells = currentSpells.sort(function(a,b){
+        return spells[a]["level"] < spells[b]["level"] ? -1 : (spells[a]["level"] == spells[b]["level"] ? 0 : 1);
+    });
+    let link = "charsleyj.github.io/Spellbook/?s=";
+    let list = "";
+    let level = null;
+    for(let s=0; s<currentSpells.length; ++s){
+        let spell = spells[currentSpells[s]]
+
+        if(spell["level"] != level){
+            level = spell["level"];
+            list += "\nLevel " + level + ":\n";
+        }
+
+        link += spell["id"] + (s == currentSpells.length-1 ? "\n" : ",");
+        list += spell["name"] + "\n";
     }
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(link + list);
 }
 
 
@@ -211,7 +267,7 @@ function generateSpellNames(spellbook) {
 function generateTable() {
     //sort based on sort variable and filter out those not allowed by isShown
     var sortable=[];
-    for (var key in spells) if (spells.hasOwnProperty(key) && isShown(spells[key])) sortable.push([key, spells[key]]);
+    for (var key in spells) if (spells.hasOwnProperty(key) && isShown(key)) sortable.push([key, spells[key]]);
     sortable.sort(function(a, b) {
         return (reverse ? -1 : 1) * (a[1]["name"] < b[1]["name"] ? -1 : a[1]["name"] > b[1]["name"] ? 1 : 0); //if reverse is true, sort in the opposite direction.
     });

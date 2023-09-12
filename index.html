@@ -107,9 +107,9 @@
                     </div>
                     <div class="input-field col s2 m1 l1">
                         <select id="added" class="c-select">
-                            <option>Added</option>
-                            <option>Yes</option>
-                            <option>No</option>
+                            <option value="0">Added</option>
+                            <option value="1">Yes</option>
+                            <option value="2">No</option>
                         </select>
                     </div>
                 </form>
@@ -139,23 +139,23 @@
     <script src="resource/jquery.cookie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
-    <script src="resource/spells.js"></script>
-    <script src="main.js"></script>
-
     <script>
-        $("#level").change(function() { var v = $("#level").find("option:selected").val(); setFilter("level", v == "-1" ? noHide : function(e) {return e["level"] == v;}); });
+        $("#level").change(function() { var v = $("#level").find("option:selected").val(); setFilter("level", v == "-1" ? noHide : function(e) {return spells[e]["level"] == v;}); });
         $("#level").find("option:selected").removeAttr("selected");
-        $("#class").change(function() { var v = $("#class").find("option:selected").html(); setFilter("class", v=="Class" ? noHide : function(e) {return e["classes"].indexOf(v)>-1;});});
+        $("#class").change(function() { var v = $("#class").find("option:selected").html(); setFilter("class", v=="Class" ? noHide : function(e) {return spells[e]["classes"].indexOf(v)>-1;});});
         $("#class").find("option:selected").removeAttr("selected");
-        $("#school").change(function() { var v = $("#school").find("option:selected").html(); setFilter("school", v=="School" ? noHide : function(e) {return e["school"]==v;});});
+        $("#school").change(function() { var v = $("#school").find("option:selected").html(); setFilter("school", v=="School" ? noHide : function(e) {return spells[e]["school"]==v;});});
         $("#school").find("option:selected").removeAttr("selected");
         $("#added").change(function() { var v = $("#added").find("option:selected").html(); setFilter("added", v=="Added" ? noHide : function(e) {
-            return hasSpell(e["name"]) == (v=="Yes");
+            return hasSpell(e) == (v=="Yes");
         });});
-        $("#added").find("option:selected").removeAttr("selected");
+        //$("#added").find("option:selected").removeAttr("selected");
         $("#search_name").keypress(function(e){
-            if(e.key == "Enter") { var v = $("#search_name").val(); setFilter("search_name", v == "" ? noHide : function(e){return nameContains(e.name, v);})}
+            if(e.key == "Enter") { var v = $("#search_name").val(); setFilter("search_name", v == "" ? noHide : function(e){return nameContains(spells[e].name, v);})}
         });
     </script>
+
+    <script src="resource/spells.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
