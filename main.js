@@ -294,7 +294,8 @@ function generateTable() {
         ans+="<tr class='spell-row" + (i % 2) + "'>";
         ans+="<td><button type='button' data-toggle='collapse' href='#full-"+slug+"' class='btn' onclick='hide(\""+slug+"\");' id=\""+slug+"\" >Show</button></td>";
         //ans+="<td><a href='#' data-activates='full-"+slug+"' class='button-collapse'>test</a></td>";
-        ans+="<td data-toggle='tooltip' data-placement='right' title='"+(spell["description"].length>399 ? spell["description"].substr(0,400)+"..." : spell["description"])+"'>"+spell.name;
+        //ans+="<td data-toggle='tooltip' data-placement='right' title='"+(spell["description"].length>399 ? spell["description"].substr(0,400)+"..." : spell["description"])+"'>"+spell.name;
+        ans+="<td>"+spell.name;
         if(spell["ritual"])
             ans+=" <em>(Ritual)</em>";
         if(spell["concentration"])
@@ -324,9 +325,9 @@ function generateTable() {
         if("range_detail" in spell)
             ans+=" ("+spell["range_detail"]+")";
         ans+="<br/>";
-        ans+="<b>Description:</b><br/>"+spell["description"]+"<br/>";
-        if(spell["athigherlevel"].length >= 2)
-            ans+="<b>At Higher Levels:</b><br/>"+spell["athigherlevel"]+"<br/>";
+        ans+="<b>Description:</b>"+spell["description"];
+        if(spell["athigherlevel"].length > 0)
+            ans+="<b>At Higher Levels:</b>"+spell["athigherlevel"];
         
         ans+="<em style='font-size: .75em;'>Sources: ";
         for(let s=0; s<spell["sources"].length; ++s){
