@@ -112,18 +112,23 @@
                             <option value="2">No</option>
                         </select>
                     </div>
+                    <ul>
+                        <li><a href="#" onclick="clearFilters()">Clear</a></li>
+                    </ul>
                 </form>
                 <!--a class="brand-logo center hide-on-med-and-down"><b><em>Spellbook</em></b></a-->
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="#" onclick="clearSpells();">Clear Spells</a></li>
-                    <li><a href="#" onclick="changeView('');" id="changeView">View Spellbook Library</a></li>
+                    <li><a href="#" onclick="setView('spells');">Spell List</a></li>
+                    <li><a href="#" onclick="setView('spellbooks');">Library</a></li>
+                    <li><a href="#" onclick="setView('options');">Options</a></li>
                     <!--li><a href="spellbook.html">View Spell Cards</a></li-->
                 </ul>
                 <ul class="side-nav" id="mobile-nav">
 					<li>
 						<div class="collection" style="margin-top: 0px;">
-							<a class="collection-item" style="height: initial;" href="#" onclick="clearSpells();">Clear Spells</a>
-							<a class="collection-item" style="height: initial;" href="#" onclick="changeView('2');" id="changeView2">View Spellbook Library</a>
+							<a class="collection-item" style="height: initial;" href="#" onclick="setView('spells');">Spell List</a>
+							<a class="collection-item" style="height: initial;" href="#" onclick="setView('spellbooks');">Library</a>
+							<a class="collection-item" style="height: initial;" href="#" onclick="setView('options');">Options</a>
 							<!--a class="collection-item" style="height: initial;" href="spellbook.html">View Spell Cards</a-->
 						</div>
 					</li>

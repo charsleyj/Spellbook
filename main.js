@@ -66,6 +66,17 @@ function nameContains(name, search) {
     return name.toLowerCase().includes(search.toLowerCase());
 }
 
+function initOptions(){
+    if(hasData(OPTIONS_DATA))
+        return;
+
+    options = {};
+    options["clipboard_url"] = true;
+    options["clipboard_list"] = true;
+    options["clipboard_group"] = true;
+    saveData(OPTIONS_DATA, options);
+}
+
 
 // Filter Functions
 
@@ -98,7 +109,18 @@ function setSort(s) {
     generateTable();
 }
 
-
+function clearFilters(){
+    for(let f in filters){
+        filters[f] = noHide;
+    }
+    $("#search_name").val("");
+    $("#level").prop("selectedIndex", 0);
+    $("#class").prop("selectedIndex", 0);
+    $("#school").prop("selectedIndex", 0);
+    $("#added").prop("selectedIndex", 0);
+    $("select").material_select();
+    generateTable();
+}
 
 // Spells Functions
 
@@ -129,7 +151,7 @@ function getSpells() {
 function clearSpells(force = false) {
     if (force || confirm("Are you sure you want to clear the current spellbook?")) {
         saveData(CURRENT_DATA, createSpellbook([]));
-        (view == "spells") ? generateTable() : generateSpellbooks();
+        setView();
     }
 }
 
@@ -188,17 +210,22 @@ function loadSpellbook(name) {
 }
 
 function saveToClipboard(){
+    let options = loadData(OPTIONS_DATA);
     let currentSpells = getSpells().spells.sort();
-    currentSpells = currentSpells.sort(function(a,b){
-        return spells[a]["level"] < spells[b]["level"] ? -1 : (spells[a]["level"] == spells[b]["level"] ? 0 : 1);
-    });
+
+    if(options["clipboard_group"]){
+        currentSpells = currentSpells.sort(function(a,b){
+            return spells[a]["level"] < spells[b]["level"] ? -1 : (spells[a]["level"] == spells[b]["level"] ? 0 : 1);
+        });
+    }
+
     let link = "charsleyj.github.io/Spellbook/?s=";
     let list = "";
     let level = null;
     for(let s=0; s<currentSpells.length; ++s){
         let spell = spells[currentSpells[s]]
 
-        if(spell["level"] != level){
+        if(options["clipboard_group"] && spell["level"] != level){
             level = spell["level"];
             list += "\nLevel " + level + ":\n";
         }
@@ -206,24 +233,31 @@ function saveToClipboard(){
         link += spell["id"] + (s == currentSpells.length-1 ? "\n" : ",");
         list += spell["name"] + "\n";
     }
-    navigator.clipboard.writeText(link + list);
+    let ans = "";
+    ans += options["clipboard_url"] ? link : "";
+    ans += options["clipboard_list"] ? list : "";
+    navigator.clipboard.writeText(ans.trim());
 }
 
 
 
 // View Functions
 
-function changeView(s) {
-    if (view=="spells") {
-        view = "spellbooks";
-        $("#changeView"+s).html("View Spell List");
-        $("#sorters").hide();
-        generateSpellbooks();
-    } else {
-        view = "spells";
-        $("#changeView"+s).html("View Spellbook Library");
-        $("#sorters").show();
-        generateTable();
+function setView(newView = view){
+    view = newView;
+    switch(view){
+        case "spells":
+            $("#sorters").show();
+            generateTable();
+            break;
+        case "spellbooks":
+            $("#sorters").hide();
+            generateSpellbooks();
+            break;
+        case "options":
+            $("#sorters").hide();
+            generateOptions();
+            break;
     }
 }
 
@@ -246,9 +280,6 @@ function generateSpellbooks() {
     ans+="</div><div class='col-lg-2'></div>";
 
     $(".table").html(ans);
-    $("#sort1").hide();
-    $("#sort2").hide();
-    $("#sort3").hide();
 }
 
 function generateSpellNames(spellbook) {
@@ -340,14 +371,38 @@ function generateTable() {
         ans+="Links: <a href=\"http://dnd5e.wikidot.com/spell:" + spell["slug"] + "\" target=\"_blank\">WikiDot</a><br/>"
 
         ans+="</div></blockquote></td></tr>";
-        $("#sort1").show();
-        $("#sort2").show();
-        $("#sort3").show();
     }
 
     ans+="</table>";
     $(".table").html(ans);
     $(".button-collapse")
+}
+
+function generateOptions(){
+    let options = loadData(OPTIONS_DATA);
+
+    var ans = "";
+    ans+="<div class='container' style='text-align: center'><h1>Options</h1>";
+    ans+="<div class='card'><h2 class='sb-name'>Clipboard</h2><form style='text-align: left'>";
+    ans+=generateOptionCheckbox('options_cb_url', "Show URL", options["clipboard_url"], "clipboard_url");
+    ans+=generateOptionCheckbox('options_cb_list', "Show Spell List", options["clipboard_list"], "clipboard_list");
+    ans+=generateOptionCheckbox('options_cb_group', "Group by Level", options["clipboard_group"], "clipboard_group");
+    ans+="</form></div>";
+    ans+="</div><div class='col-lg-2'></div>";
+    $(".table").html(ans);
+}
+
+function generateOptionCheckbox(id, text, value, option){
+    ans = "<input type='checkbox' onclick='saveOption(\"" + option + "\", this.checked)'";
+    ans += (value ? "checked='true'" : "");
+    ans += "id='" + id + "'><label for='" + id + "'> " + text + "</label><br>";
+    return ans;
+}
+
+function saveOption(option, value){
+    let options = loadData(OPTIONS_DATA);
+    options[option] = value;
+    saveData(OPTIONS_DATA, options);
 }
 
 
@@ -376,6 +431,7 @@ function saveData(name, data){
 
 const CURRENT_DATA = "spellbook";
 const SPELLBOOKS_DATA = "spellbooks";
+const OPTIONS_DATA = "options";
 
 $('select').material_select();
 $(".button-collapse").sideNav();
@@ -403,3 +459,4 @@ var filters = {
 var view = "spells";
 
 getJSONData();
+initOptions();
