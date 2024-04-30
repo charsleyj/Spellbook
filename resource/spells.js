@@ -35,6 +35,7 @@ var resource_spells = {
       "Artificer",
       "Druid",
       "Ranger",
+      "Sorcerer",
       "Wizard"
     ],
     "components": "S",
@@ -117,8 +118,10 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Artificer",
+      "Bard",
       "Cleric",
-      "Paladin"
+      "Paladin",
+      "Ranger"
     ],
     "components": "V, S, M",
     "concentration": false,
@@ -389,6 +392,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Hour",
     "classes": [
+      "Bard",
       "Druid",
       "Wizard"
     ],
@@ -576,7 +580,9 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Minute",
     "classes": [
-      "Cleric"
+      "Cleric",
+      "Druid",
+      "Wizard"
     ],
     "components": "V, S, M",
     "concentration": false,
@@ -603,6 +609,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Cleric",
       "Paladin"
     ],
     "components": "V",
@@ -628,6 +635,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Cleric",
       "Paladin"
     ],
     "components": "V",
@@ -653,6 +661,8 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Cleric",
+      "Druid",
       "Paladin"
     ],
     "components": "V",
@@ -842,7 +852,7 @@ var resource_spells = {
       "Druid",
       "Ranger"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>You establish a telepathic link with one beast you touch that is friendly to you or charmed by you. The spell<br />fails if the beast’s Intelligence is 4 or higher. Until the spell ends, the link is active while you and the beast are within line of sight of each other. Through the link, the beast can understand your telepathic messages to it, and it can telepathically communicate simple emotions and concepts back to you. While the link is active,<br />the beast gains advantage on attack rolls against any creature within 5 feet of you that you can see</p>",
     "duration": "Concentration, up to 10 minutes",
@@ -920,9 +930,10 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Artificer",
+      "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>You create a Large hand of shimmering, translucent force in an unoccupied space that you can see within range. The hand lasts for the spell’s duration, and it moves at your command, mimicking the movements of your own hand. </p><p>The hand is an object that has AC 20 and hit points equal to your hit point maximum. If it drops to 0 hit points, the spell ends. It has a Strength of 26 (+8) and a Dexterity of 10 (+0). The hand doesn’t fill its space. </p><p>When you cast the spell and as a bonus action on your subsequent turns, you can move the hand up to 60 feet and then cause one of the following effects with it.</p><p><b>Clenched Fist&nbsp;</b><br />The hand strikes one creature or object within 5 feet of it. Make a melee spell attack for the hand using your game statistics. On a hit, the target takes 4d8 force damage. </p><p><b>Forceful Hand</b><br />The hand attempts to push a creature within 5 feet of it in a direction you choose. Make a check with the hand’s Strength contested by the Strength (Athletics) check of the target. If the target is Medium or smaller, you have advantage on the check. If you succeed, the hand pushes the target up to 5 feet plus a number of feet equal to five times your spellcasting ability modifier. The hand moves with the target to remain within 5 feet of it. </p><p><b>Grasping Hand</b><br />The hand attempts to grapple a Huge or smaller creature within 5 feet of it. You use the hand’s Strength score to resolve the grapple. If the target is Medium or smaller, you have advantage on the check. While the hand is grappling the target, you can use a bonus action to have the hand crush it. When you do so, the target takes bludgeoning damage equal to 2d6 + your spellcasting ability modifier. </p><p><b>Interposing Hand</b><br />The hand interposes itself between you and a creature you choose until you give the hand a different command. The hand moves to stay between you and the target, providing you with half cover against the target. The target can’t move through the hand’s space if its Strength score is less than or equal to the hand’s Strength score. If its Strength score is higher than the hand’s Strength score, the target can move toward you through the hand’s space, but that space is difficult terrain for the target.</p>",
     "duration": "Concentration, up to 1 minute",
@@ -1188,6 +1199,7 @@ var resource_spells = {
     "athigherlevel": "<p>At 5th level, the melee attack deals an extra 1d8 thunder damage to the target, and the damage the target takes for moving increases to 2d8. Both damage rolls increase by 1d8 at 11th level and 17th level.</p>",
     "casting_time": "1 Action",
     "classes": [
+      "Artificer",
       "Sorcerer",
       "Warlock",
       "Wizard"
@@ -1352,7 +1364,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>You create a bolt of lightning that arcs toward a target of your choice that you can see within range. Three bolts then leap from that target to as many as three other targets, each of which must be within 30 feet of the first target. A target can be a creature or an object and can be targeted by only one of the bolts. </p><p>A target must make a Dexterity saving throw. The target takes 10d8 lightning damage on a failed save, or half as much on a successful one.&nbsp;</p>",
     "duration": "Instantaneous",
@@ -1435,7 +1447,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>You hurl a 4-inch-diameter sphere of energy at a creature that you can see within range. You choose acid, cold, fire, lightning, poison, or thunder for the type of orb you create, and then make a ranged spell attack against the target. If the attack hits, the creature takes 3d8 damage of the type you chose.&nbsp;</p>",
     "duration": "Instantaneous",
@@ -1463,7 +1475,7 @@ var resource_spells = {
       "Warlock",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>A sphere of negative energy ripples out in a 60-foot radius sphere from a point within range. Each creature in that area must make a Constitution saving throw. A target takes 8d6 necrotic damage on a failed save, or half as much damage on a successful one.</p>",
     "duration": "Instantaneous",
@@ -1518,7 +1530,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>You create an invisible sensor within range in a location familiar to you (a place you have visited or seen before) or in an obvious location that is unfamiliar to you (such as behind a door, around a corner, or in a grove of trees). The sensor remains in place for the duration, and it can’t be attacked or otherwise interacted with. </p><p>When you cast the spell, you choose seeing or hearing. You can use the chosen sense through the sensor as if you were in its space. As your action, you can switch between seeing and hearing. A creature that can see the sensor (such as a creature benefitting from see invisibility or truesight) sees a luminous, intangible orb about the size of your fist.</p>",
     "duration": "Concentration, up to 10 minutes",
@@ -1575,7 +1587,7 @@ var resource_spells = {
       "Warlock",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>You fill the air with spinning daggers in a cube 5 feet on each side, centered on a point you choose within range. A creature takes 4d4 slashing damage when it enters the spell’s area for the first time on a turn or starts its turn there.&nbsp;</p>",
     "duration": "Concentration, up to 1 minute",
@@ -1624,6 +1636,7 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 2nd level or higher, roll an additional 2d10 for each slot level above 1st.</p>",
     "casting_time": "1 Action",
     "classes": [
+      "Bard",
       "Sorcerer",
       "Wizard"
     ],
@@ -1652,6 +1665,7 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 2nd level or higher, you can affect one additional creature for each slot level above 1st. The creatures must be within 30 feet of each other when you target them</p>",
     "casting_time": "1 Action",
     "classes": [
+      "Bard",
       "Cleric",
       "Paladin"
     ],
@@ -1761,7 +1775,7 @@ var resource_spells = {
       "Warlock",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>For the duration, you understand the literal meaning of any spoken language that you hear. <br />You also understand any spoken language that you hear. You also understand any written language that you see, but you must be touching the surface of which the words are written. It takes about 1 minute to read one page of text. </p><p>This spell doesn’t decode secret messages in a text or glyph, such as an arcane sigil, that isn’t part of a written language.</p>",
     "duration": "1 hour",
@@ -1810,10 +1824,11 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d8 for each slot level above 5th.</p>",
     "casting_time": "1 Action",
     "classes": [
+      "Druid",
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>A blast of cold air erupts from your hands. <br />Each creature in a 60-foot cone must make a Constitution saving throw. </p><p>A creature takes 8d8 cold damage on a failed save, or half as much damage on a successful one. A creature killed by this spell becomes a frozen statue until it thaws.</p>",
     "duration": "Instantaneous",
@@ -1843,7 +1858,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>This spell assaults and twists creatures’ minds, spawning delusions and provoking uncontrolled actions. Each creature in a 10-foot radius sphere centered on a point you choose within range must succeed on a Wisdom saving throw when you cast this spell or be affected by it. </p><p>An affected target can’t take reactions and must roll a d10 at the start of each of its turns to determine its behavior for that turn. </p><p><b>d10   Behavior</b> </p><p>&nbsp;1. The creature uses all its movement to move in a random direction. To determine the direction, roll a d8 and assign a direction to each die face. The creature doesn’t take an action this turn. <br />&nbsp;<br />2-6. The creature doesn’t move or take actions this turn. </p><p>7-8. The creature uses its action to make a melee attack against a randomly determined creature within its reach. If there is no creature within its reach, the creature does nothing ths turn. </p><p>&nbsp;9-10. The creature can act and move normally. </p><p>At the end of its turns, an affected target can make a Wisdom saving throw. It it succeeds, this effect ends for that target.</p>",
     "duration": "Concentration, up to 1 minute",
@@ -1895,7 +1910,7 @@ var resource_spells = {
     "classes": [
       "Ranger"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>You throw a nonmagical weapon or fire a piece of nonmagical ammunition into the air to create a cone of identical weapons that shoot forward and then disappear. Each creature in a 60-foot cone must succeed on a Dexterity saving throw. A creature takes 3d8 damage on a failed save, or half as much damage on a successful one. The damage type is the same as that of the weapon or ammunition used as a component.</p>",
     "duration": "Instantaneous",
@@ -1947,7 +1962,7 @@ var resource_spells = {
       "Druid",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>You call forth an elemental servant. <br />Choose an area of air, earth, fire, or water that fills a 10-foot cube within range. An elemental of challenge rating 5 or lower appropriate to the area you chose appears in an unoccupied space within 10 feet of it. For example, a fire elemental emerges from a bonfire, and an earth elemental rises up from the ground. The elemental disappears when it drops to 0 hit points or when the spell ends. </p><p>The elemental is friendly to you and your companions for the duration. Roll initiative for the elemental, which has its own turns. It obeys any verbal commands that you issue to it (no action required by you). If you don’t issue any commands to the elemental, it defends itself from hostile creatures but otherwise takes no actions. </p><p>If your concentration is broken, the elemental doesn’t disappear. Instead, you lose control of the elemental, it becom es hostile toward you and your companions, and it might attack. An uncontrolled elemental can’t be dismissed by you, and it disappears 1 hour after you summoned it. The DM has the elemental’s statistics.&nbsp;</p>",
     "duration": "Concentration, up to 1 hour",
@@ -2025,7 +2040,7 @@ var resource_spells = {
     "classes": [
       "Ranger"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>You fire a piece of nonmagical ammunition from a ranged weapon or throw a nonmagical weapon into the air and choose a point within range. <br />Hundreds of duplicates of the ammunition or weapon fall in a volley from above and then disappear. Each creature in a 40-foot radius. 20-foot-high cylinder centered on that point must make a Dexterity saving throw. A creature takes 8d8 damage on a failed save, or half as much damage on a successful one. The damage type is the same as that of the ammunition or weapon.</p>",
     "duration": "Instantaneous",
@@ -2051,7 +2066,7 @@ var resource_spells = {
       "Druid",
       "Ranger"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>You summon fey creatures that appear in unoccupied spaces that you can see within range. </p><p>Choose one of the following options for what appears: <br />&nbsp;•  One fey creature of challenge rating 2 or lower <br />&nbsp;•  Two fey creatures of challenge rating 1 or lower <br />&nbsp;•  Four fey creatures of challenge rating 1/2 or lower <br />&nbsp;•  Eight fey creatures of challenge rating 1/4 or lower </p><p>A summoned creature disappears when it drops to 0 hit points or when the spell ends. </p><p>The summoned creatures are friendly to you and your companions. Roll initiative for the summoned creatures as a group, which have their own turns. They obey any verbal commands that you issue to them (no action required by you). If you don’t issue any commands to them, they defend themselves from hostile creatures, but otherwise take no actions. <br />The DM has the creatures’ statistics.&nbsp;</p>",
     "duration": "Concentration, up to 1 hour",
@@ -2129,7 +2144,7 @@ var resource_spells = {
     "classes": [
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>Choose a spell of 5th level or lower that you can cast, that has a casting time of 1 action, and that can target you. <br />You cast that spell called the contingent spell as part of casting contingency, expending spell slots for both, but the contingent spell doesn’t come into effect. Instead, it takes effect when a certain circumstance occurs. You describe that circumstance when you cast the two spells. For example, a contingency cast with water breathing might stipulate that water breathing comes into effect when you are engulfed in water or a similar liquid. </p><p>The contingent spell takes effect immediately after the circumstance is met for the first time, whether or not you want it to. and then contingency ends. </p><p>The contingent spell takes effect only on you, even if it can normally target others. You can use only one contingency spell at a time. If you cast this spell again, the effect of another contingency spell on you ends. Also, contingency ends on you if its material component is ever not on your person.</p>",
     "duration": "10 days",
@@ -2156,9 +2171,10 @@ var resource_spells = {
     "classes": [
       "Artificer",
       "Cleric",
+      "Druid",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>A flame, equivalent in brightness to a torch, springs forth from an object that you touch. <br />The effect looks like a regular flame, but it creates no heat and doesn’t use oxygen. A continual flame can be covered or hidden but not smothered or quenched.</p>",
     "duration": "Until dispelled",
@@ -2215,7 +2231,7 @@ var resource_spells = {
       "Druid",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>Until the spell ends, you control any freestanding water inside an area you choose that is a cube up to 100 feet on a side. <br />You can choose from any of the following effects when you cast this spell. As an action on your turn, you can repeat the same effect or choose a different one. </p><p><b>Flood</b> <br />You cause the water level of all standing water in the area to rise by as much as 20 feet. If the area includes a shore, the flooding water spills over onto dry land. If you choose an area in a large body of water, you instead create a 20-foot tall wave that travels from one side of the area to the other and then crashes down. Any Huge or smaller vehicles in the wave’s path are carried with it to the other side. Any Huge or smaller vehicles struck by the wave have a 25 percent chance of capsizing. The water level remains elevated until the spell ends or you choose a different effect. If this effect produced a wave, the wave repeats on the start of your next turn while the flood effect lasts. </p><p><b>Part Water</b> <br />You cause water in the area to move apart and create a trench. The trench extends across the spell’s area, and the separated water forms a wall to either side. The trench remains until the spell ends or you choose a different effect. The water then slowly fills in the trench over the course of the next round until the normal water level is restored. </p><p><b>Redirect Flow</b>&nbsp;<br />You cause flowing water in the area to move in a direction you choose, even if the water has to flow over obstacles, up walls, or in other unlikely directions. The water in the area moves as you direct it, but once it moves beyond the spell’s area, it resumes its flow based on the terrain conditions. The water continues to move in the direction you chose until the spell ends or you choose a different effect. </p><p><b>Whirlpool</b>&nbsp;<br />This effect requires a body of water at least 50 feet square and 25 feet deep. You cause a whirlpool to form in the center of the area. The whirlpool forms a vortex that is 5 feet wide at the base, up to 50 feet wide at the top, and 25 feet tall. Any creature or object in the water and within 25 feet of the vortex is pulled 10 feet toward it. A creature can swim away from the vortex by making a Strength (Athletics) check against your spell save DC. <br />When a creature enters the vortex for the first time on a turn or starts its turn there, it must make a Strength saving throw. On a failed save, the creature takes 2d8 bludgeoning damage and is caught in the vortex until the spell ends. On a successful save, the creature takes half damage, and isn’t caught in the vortex. A creature caught in the vortex can use its action to try to swim away from the vortex as described above, but has disadvantage on the Strength (Athletics) check to do so. <br />The first time each turn that an object enters the vortex, the object takes 2d8 bludgeoning damage,&nbsp;this damage occurs each round it remains in the vortex.</p>",
     "duration": "Concentration, up to 10 minutes",
@@ -2410,7 +2426,7 @@ var resource_spells = {
       "Warlock",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>You can cast this spell only at night. Choose up to three corpses of Medium or Small humanoids within range. Each corpse becomes a ghoul under your control. (The DM has game statistics for these creatures.) </p><p>As a bonus action on each of your turns, you can mentally command any creature you animated with this spell if the creature is within 120 feet of you (if you control multiple creatures, you can command any or all of them at the same time, issuing the same command to each one). You decide what action the creature will take and where it will move during its next turn, or you can issue a general command, such as to guard a particular chamber or corridor. If you issue no commands, the creature only defends itself against hostile creatures. Once given an order, the creature continues to follow it until its task is complete. </p><p>The creature is under your control for 24 hours, after which it stops obeying any command you have given it. To maintain control of the creature for another 24 hours, you must cast this spell on the creature before the current 24-hour period ends. This use of the spell reasserts your control over up to three creatures you have animated with this spell, rather than animating new ones.&nbsp;</p>",
     "duration": "Instantaneous",
@@ -2438,7 +2454,7 @@ var resource_spells = {
       "Cleric",
       "Druid"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>You either create or destroy water. </p><p><b>Create Water</b> <br />You create up to 10 gallons of clean water within range in an open container. Alternatively, the water falls as rain in a 30-foot cube within range, extinguishing exposed flames in the area. </p><p><b>Destroy Water</b>&nbsp;<br />You destroy up to 10 gallons of water in an open container within range. Alternatively, you destroy fog in a 30-foot cube within range.&nbsp;</p>",
     "duration": "Instantaneous",
@@ -2466,7 +2482,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>You pull wisps of shadow material from the Shadowfell to create a nonliving object of vegetable matter within range: soft goods, rope, wood, or something similar. You can also use this spell to create mineral objects such as stone, crystal, or metal. The object created must be no larger than a 5-foot cube, and the object must be of a form and material that you have seen before. </p><p>The duration depends on the object’s material. If the object is composed of multiple materials, use the shortest duration. </p><p><b>Material — Duration </b><br />Vegetable matter — 1 day <br />Stone/crystal — 12 hours <br />Precious metals — 1 hour <br />Gems — 10 minutes <br />Adamantine/Mithral — 1 minute </p><p>Using any material created by this spell as another spell’s material component causes that spell to fail.&nbsp;</p>",
     "duration": "Special",
@@ -2578,7 +2594,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. <br />You can also combine the four lights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius. </p><p>As a bonus action on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell’s range.</p>",
     "duration": "Concentration, up to 1 minute",
@@ -2718,7 +2734,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>A beam of yellow light flashes from your pointing finger, then condenses to linger at a chosen point within range as a glowing bead for the duration. <br />When the spell ends, either because your concentration is broken or because you decide to end it, the bead blossoms with a low roar into an explosion of flame that spreads around corners. Each creature in a 20-foot radius sphere centered on that point must make a Dexterity saving throw. A creature takes fire damage equal to the total accumulated damage on a failed save, or half as much damage on a successful one. </p><p>The spell’s base damage is 12d6. If at the end of your turn the bead has not yet detonated, the damage increases by 1d6. </p><p>If the glowing bead is touched before the interval has expired, the creature touching it must make a Dexterity saving throw. On a failed save, the spell ends immediately, causing the bead to erupt in flame. On a successful save, the creature can throw the bead up to 40 feet. When it strikes a creature or a solid object, the spell ends, and the bead explodes. <br />The fire damages objects in the area and ignites flammable objects that aren’t being worn or carried.&nbsp;</p>",
     "duration": "Concentration, up to 1 minute",
@@ -2742,6 +2758,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Sorcerer",
       "Warlock",
       "Wizard"
     ],
@@ -2856,7 +2873,7 @@ var resource_spells = {
       "Paladin",
       "Ranger"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>For the duration, you can sense the presence and location of poisons, poisonous creatures, and diseases within 30 feet of you. You also identify the kind of poison, poisonous creature, or disease in each case. </p><p>The spell can penetrate most barriers, but is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt.</p>",
     "duration": "Concentration, up to 10 minutes",
@@ -2967,7 +2984,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>A thin green ray springs from your pointing finger to a target that you can see within range. <br />The target can be a creature, an object, or a creation of magical force, such as the wall created by wall of force. </p><p>A creature targeted by this spell must make a Dexterity saving throw. On a failed save, the target takes 10d6 + 40 force damage. If this damage reduces the target to 0 hit points, it is disintegrated. </p><p>A disintegrated creature and everything it is wearing and carrying, except magic items, are reduced to a pile of fine gray dust. The creature can be restored to life only by means of a true resurrection or a wish spell. </p><p>This spell automatically disintegrates a Large or smaller nonmagical object or a creation of magical force. If the target is a Huge or larger object or creation of force, this spell disintegrates a 10-foot-cube portion of it. A magic item is unaffected by this spell.&nbsp;</p>",
     "duration": "Instantaneous",
@@ -3074,9 +3091,10 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
-      "Cleric"
+      "Cleric",
+      "Druid"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>Your magic and an offering put you in contact with a god or a god’s servants. You ask a single question concerning a specific goal, event, or activity to occur within 7 days. The DM offers a truthful reply. The reply might be a short phrase, a cryptic rhyme, or an omen. </p><p>The spell doesn’t take into account any possible circumstances that might change the outcome, such as the casting of additional spells or the loss or gain of a companion. </p><p>If you cast this spell two or more times before finishing your next long rest, there is a cumulative 25 percent chance for each casting after the first that you get a random reading. The DM makes this roll in secret.</p>",
     "duration": "Instantaneous",
@@ -3152,6 +3170,7 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Druid",
+      "Ranger",
       "Sorcerer"
     ],
     "components": "V, S",
@@ -3234,7 +3253,7 @@ var resource_spells = {
     "classes": [
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>You touch an object weighing 10 pounds or less whose longest dimension is 6 feet or less. <br />The spell leaves an invisible mark on its surface and invisibly inscribes the name of the item on the sapphire you use as the material component. Each time you cast this spell, you must use a different sapphire. </p><p>At any time thereafter, you can use your action to speak the item’s name and crush the sapphire. The item instantly appears in your hand regardless of physical or planar distances, and the spell ends. If another creature is holding or carrying the item, crushing the sapphire doesn’t transport the item to you, but instead you learn who the creature possessing the object is and roughly where that creature is located at that moment. </p><p>Dispel magic or a similar effect successfully applied to the sapphire ends this spell’s effect.</p>",
     "duration": "Until dispelled",
@@ -3264,7 +3283,7 @@ var resource_spells = {
       "Warlock",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": false,
     "description": "<p>This spell shapes a creature’s dreams. <br />Choose a creature known to you as the target of this spell. The target must be on the same plane of existence as you. Creatures that don’t sleep, such as elves, can’t be contacted by this spell. You, or a willing creature you touch, enters a trance state, acting as a messenger. While in the trance, the messenger is aware of his or her surroundings, but can’t take actions or move. </p><p>If the target is asleep, the messenger appears in the target’s dreams and can converse with the target as long as it remains asleep, through the duration of the spell. The messenger can also shape the environment of the dream, creating landscapes, objects, and other images. The messenger can emerge from the trance at any time, ending the effect of the spell early. The target recalls the dream perfectly upon waking. If the target is awake when you cast the spell, the messenger knows it, and can either end the trance (and the spell) or wait for the target to fall asleep, at which point the messenger appears in the target’s dreams. </p><p>You can make the messenger appear monstrous and terrifying to the target. If you do, the messenger can deliver a message of no more than ten words and then the target must make a Wisdom saving throw. On a failed save, echoes of the phantasmal monstrosity spawn a nightmare that lasts the duration of the target’s sleep and prevents the target from gaining any benefit from that rest. In addition, when the target wakes up, it takes 3d6 psychic damage. </p><p>If you have a body part, lock of hair, clipping from a nail, or similar portion of the target’s body, the target makes its saving throw with disadvantage.</p>",
     "duration": "8 hours",
@@ -3317,7 +3336,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>Choose an unoccupied 5-foot cube of air that you can see within range. An elemental force that resembles a dust devil appears in the cube and lasts for the spell’s duration.<br />Any creature that ends its turn within 5 feet of the dust devil must make a Strength saving throw. On a failed save, the creature takes 1d8 bludgeoning damage and is pushed 10 feet away. On a successful save, the creature takes half as much damage and isn’t pushed.<br />As a bonus action, you can move the dust devil up to 30 feet in any direction. If the dust devil moves over sand, dust, loose dirt, or small gravel, it sucks up the material and forms a 10-foot radius cloud of debris around itself that lasts until the start of your next turn. The cloud heavily obscures its area.</p>",
     "duration": "Concentration, up to 1 minute",
@@ -3484,7 +3503,9 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Artificer",
-      "Paladin"
+      "Druid",
+      "Paladin",
+      "Ranger"
     ],
     "components": "V, S",
     "concentration": true,
@@ -3512,7 +3533,9 @@ var resource_spells = {
       "Bard",
       "Cleric",
       "Druid",
-      "Sorcerer"
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
     ],
     "components": "V, S, M",
     "concentration": true,
@@ -3539,6 +3562,8 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Artificer",
+      "Bard",
+      "Druid",
       "Sorcerer",
       "Wizard"
     ],
@@ -3590,7 +3615,8 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
-      "Druid"
+      "Druid",
+      "Ranger"
     ],
     "components": "V, S",
     "concentration": true,
@@ -4142,6 +4168,8 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Druid",
+      "Sorcerer",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -4252,7 +4280,8 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for every two slot levels above 2nd.</p>",
     "casting_time": "1 Bonus Action",
     "classes": [
-      "Druid"
+      "Druid",
+      "Sorcerer"
     ],
     "components": "V, S, M",
     "concentration": true,
@@ -4305,6 +4334,7 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Druid",
+      "Sorcerer",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -4331,6 +4361,8 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Druid",
+      "Sorcerer",
       "Warlock",
       "Wizard"
     ],
@@ -4618,6 +4650,7 @@ var resource_spells = {
     "classes": [
       "Cleric",
       "Sorcerer",
+      "Warlock",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -4675,6 +4708,7 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Cleric",
+      "Paladin",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -4863,6 +4897,7 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Artificer",
+      "Sorcerer",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -4919,7 +4954,8 @@ var resource_spells = {
       "Artificer",
       "Bard",
       "Cleric",
-      "Druid"
+      "Druid",
+      "Ranger"
     ],
     "components": "V, S, M",
     "concentration": false,
@@ -5111,6 +5147,7 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Druid",
+      "Ranger",
       "Sorcerer",
       "Wizard"
     ],
@@ -5379,6 +5416,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "10 Minutes",
     "classes": [
+      "Bard",
       "Cleric",
       "Druid"
     ],
@@ -5794,6 +5832,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Druid",
       "Sorcerer",
       "Wizard"
     ],
@@ -6303,6 +6342,7 @@ var resource_spells = {
     "athigherlevel": "<p>This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).</p>",
     "casting_time": "1 Action",
     "classes": [
+      "Artificer",
       "Sorcerer",
       "Warlock",
       "Wizard"
@@ -6421,6 +6461,7 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st.</p>",
     "casting_time": "1 Action",
     "classes": [
+      "Artificer",
       "Bard",
       "Druid",
       "Ranger",
@@ -6675,6 +6716,8 @@ var resource_spells = {
     "classes": [
       "Artificer",
       "Paladin",
+      "Ranger",
+      "Sorcerer",
       "Wizard"
     ],
     "components": "V, S",
@@ -6781,6 +6824,7 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 4th level or higher, the healing increases by 1d4 for each slot level above 3rd.</p>",
     "casting_time": "1 Bonus Action",
     "classes": [
+      "Bard",
       "Cleric"
     ],
     "components": "V",
@@ -6889,7 +6933,8 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Cleric",
-      "Druid"
+      "Druid",
+      "Ranger"
     ],
     "components": "V, S",
     "concentration": false,
@@ -7137,6 +7182,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Bard",
       "Sorcerer",
       "Warlock",
       "Wizard"
@@ -7165,6 +7211,7 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Bard",
+      "Warlock",
       "Wizard"
     ],
     "components": "S",
@@ -7239,7 +7286,7 @@ var resource_spells = {
     ],
     "srd": "5.0"
   },
-  "Mold earth": {
+  "Mold Earth": {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
@@ -7253,7 +7300,7 @@ var resource_spells = {
     "duration": "Instantaneous or 1 hour",
     "id": "389",
     "level": "0",
-    "name": "Mold earth",
+    "name": "Mold Earth",
     "range": "30 feet",
     "ritual": false,
     "school": "Transmutation",
@@ -7497,7 +7544,7 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 7th level or higher, the damage increases by 1d6 for each slot level above 6th</p>",
     "casting_time": "1 Action",
     "classes": [
-      "Artificer",
+      "Sorcerer",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -7525,6 +7572,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Artificer",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -7659,6 +7707,7 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d10 for each slot level above 4th.</p>",
     "casting_time": "1 Action",
     "classes": [
+      "Bard",
       "Wizard"
     ],
     "components": "V, S",
@@ -7737,6 +7786,7 @@ var resource_spells = {
       "Bard",
       "Cleric",
       "Druid",
+      "Warlock",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -7881,7 +7931,8 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
-      "Bard"
+      "Bard",
+      "Cleric"
     ],
     "components": "V, S",
     "concentration": false,
@@ -7961,7 +8012,8 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 3rd level or higher, the healing increases by 1d8 for each slot level above 2nd.</p>",
     "casting_time": "10 Minutes",
     "classes": [
-      "Cleric"
+      "Cleric",
+      "Paladin"
     ],
     "components": "V",
     "concentration": false,
@@ -8041,6 +8093,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Bard",
       "Sorcerer",
       "Wizard"
     ],
@@ -8068,6 +8121,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Bard",
       "Wizard"
     ],
     "components": "V, S",
@@ -8205,6 +8259,7 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Cleric",
+      "Druid",
       "Paladin",
       "Warlock",
       "Wizard"
@@ -8348,6 +8403,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Bard",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -8624,7 +8680,9 @@ var resource_spells = {
     "classes": [
       "Artificer",
       "Cleric",
-      "Paladin"
+      "Druid",
+      "Paladin",
+      "Ranger"
     ],
     "components": "V, S, M",
     "concentration": false,
@@ -8787,7 +8845,8 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 2nd level or higher, the initial extra damage dealt by the attack increases by 1d6 for each slot level above 1st.</p>",
     "casting_time": "1 Bonus Action",
     "classes": [
-      "Paladin"
+      "Paladin",
+      "Ranger"
     ],
     "components": "V",
     "concentration": true,
@@ -9283,6 +9342,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Bard",
       "Sorcerer",
       "Wizard"
     ],
@@ -9392,7 +9452,8 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Bard",
-      "Cleric"
+      "Cleric",
+      "Wizard"
     ],
     "components": "V, S, M",
     "concentration": false,
@@ -9747,6 +9808,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Cleric",
       "Druid",
       "Sorcerer",
       "Wizard"
@@ -9776,6 +9838,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Cleric",
       "Druid",
       "Sorcerer",
       "Wizard"
@@ -9996,6 +10059,7 @@ var resource_spells = {
     "classes": [
       "Bard",
       "Sorcerer",
+      "Warlock",
       "Wizard"
     ],
     "components": "V, M",
@@ -10187,6 +10251,7 @@ var resource_spells = {
     "casting_time": "1 Action",
     "classes": [
       "Druid",
+      "Sorcerer",
       "Wizard"
     ],
     "components": "V, S, M",
@@ -10519,6 +10584,7 @@ var resource_spells = {
     "athigherlevel": "<p>When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.</p>",
     "casting_time": "1 Action",
     "classes": [
+      "Sorcerer",
       "Warlock",
       "Wizard"
     ],
@@ -10764,7 +10830,7 @@ var resource_spells = {
       "Sorcerer",
       "Wizard"
     ],
-    "components": "V, S, M ",
+    "components": "V, S, M",
     "concentration": true,
     "description": "<p>You conjure up a wall of water on the ground at a point you can see within range. You can make the wall up to 30 feet long, 10 feet high, and 1 foot thick, or you can make a ringed wall up to 20 feet in diameter, 20 feet high, and 1 foot thick. The wall vanishes when the spell ends. The wall’s space is difficult terrain.<br />Any ranged weapon attack that enters the wall’s space has disadvantage on the attack roll, and fire damage is halved if the fire effect passes through the wall to reach its target. Spells that deal cold damage that pass through the wall cause the area of the wall they pass through to freeze solid (at least a 5-foot square section is frozen). Each 5-foot-square frozen section has AC 5 and 15 hit points. Reducing a frozen section to 0 hit points destroys it. When a section is destroyed, the wall’s water doesn’t fill it</p>",
     "duration": "Concentration, up to 10 minutes",
@@ -10791,7 +10857,8 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
-      "Cleric"
+      "Cleric",
+      "Paladin"
     ],
     "components": "V, S, M",
     "concentration": false,
@@ -10820,7 +10887,8 @@ var resource_spells = {
     "classes": [
       "Bard",
       "Druid",
-      "Sorcerer"
+      "Sorcerer",
+      "Wizard"
     ],
     "components": "V",
     "concentration": true,
@@ -10963,6 +11031,7 @@ var resource_spells = {
     "athigherlevel": "",
     "casting_time": "1 Action",
     "classes": [
+      "Warlock",
       "Wizard"
     ],
     "components": "V, S",
