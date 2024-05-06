@@ -124,17 +124,22 @@ function clearFilters(){
 
 // Spells Functions
 
-function createSpellbook(spells, name = ""){
+function createSpellbook(spells, name = "", colours = null){
     let obj = {};
     obj.name = name;
     obj.spells = spells;
+    if(colours != null && colours != undefined && colours != {})
+        obj.colours = colours;
     return obj;
 }
 
 function addSpell(s) {
     var spellbook = getSpells();
-    if (spellbook.spells.indexOf(s) >= 0)
+    if (spellbook.spells.indexOf(s) >= 0){
         spellbook.spells.splice(spellbook.spells.indexOf(s), 1);
+        if(spellbook.colours != undefined)
+            delete spellbook.colours[s];
+    }
     else
         spellbook.spells.push(s);
     saveData(CURRENT_DATA, spellbook);
@@ -155,6 +160,17 @@ function clearSpells(force = false) {
     }
 }
 
+function setSpellColour(spellName, colour){
+    let spellbook = getSpells();
+    if(spellbook.colours == undefined)
+        spellbook.colours = {};
+    if(colour != "")
+        spellbook.colours[spellName] = colour;
+    else   
+        delete spellbook.colours[spellName];
+    saveData(CURRENT_DATA, spellbook);
+}
+
 function saveSpellbook(name) {
     var spellbooks = getSpellbooks();
     var sb = getSpells();
@@ -167,7 +183,7 @@ function saveSpellbook(name) {
         }
     }
     if (!contains) {
-        spellbooks.push(createSpellbook(sb.spells, name));
+        spellbooks.push(createSpellbook(sb.spells, name, sb.colours));
     }
     saveData(SPELLBOOKS_DATA, spellbooks);
     generateSpellbooks();
@@ -202,7 +218,7 @@ function loadSpellbook(name) {
     var spellbooks = getSpellbooks();
     for (var i = 0; i<spellbooks.length; i++) {
         if (spellbooks[i].name == name) {
-            saveData(CURRENT_DATA, createSpellbook(spellbooks[i].spells));
+            saveData(CURRENT_DATA, createSpellbook(spellbooks[i].spells, "", spellbooks[i].colours));
             generateSpellbooks();
             return;
         }
@@ -310,11 +326,14 @@ function generateTable() {
 
     var ans = "<table class='table'><thead class='thead-inverse'><tr><th>Full</th><th class='sort' onclick='setSort(\"name\");'>Name</th><th class='sort' onclick='setSort(\"level\");'>Level</th><th class='sort' onclick='setSort(\"school\");'>School</th><th class='sort' onclick='setSort(\"range\");'>Range</th><th class='sort' onclick='setSort(\"casting_time\");'>Casting Time</th><th class='sort' onclick='setSort(\"components\");'>Components</th><th>Spellbook</th></tr></thead>";
 
+    currentTableSpells = [];
     for (var i = 0; i<sortable.length; i++)  {
         var arr = sortable[i];
         var name = arr[0];
         var spell = arr[1];
         var slug = arr[1].slug;
+
+        currentTableSpells.push(name);
 
         if(sortsWithDividers.includes(sort) && (i == 0 || sortable[i][1][sort] != sortable[i-1][1][sort])) {
             ans += "<tr class='spell-divider'><td colspan='100%' class='row'>";
@@ -322,7 +341,7 @@ function generateTable() {
             ans+="</td></tr>";
         }
 
-        ans+="<tr class='spell-row" + (i % 2) + "'>";
+        ans+="<tr id=\"row-"+slug+"\" style='background-color: " + (i % 2 == 0 ? "#ffffff" : "#f4f4f4") + "'>";
         ans+="<td><button type='button' data-toggle='collapse' href='#full-"+slug+"' class='btn' onclick='hide(\""+slug+"\");' id=\""+slug+"\" >Show</button></td>";
         //ans+="<td><a href='#' data-activates='full-"+slug+"' class='button-collapse'>test</a></td>";
         //ans+="<td data-toggle='tooltip' data-placement='right' title='"+(spell["description"].length>399 ? spell["description"].substr(0,400)+"..." : spell["description"])+"'>"+spell.name;
@@ -337,7 +356,7 @@ function generateTable() {
         ans+="<td>"+spell["range"]+("range_detail" in spell ? "*" : "")+"</td>";
         ans+="<td>"+spell["casting_time"]+"</td>";
         ans+="<td>"+spell["components"]+("components_isCostly" in spell ? "*" : "")+"</td>";
-        ans+="<td style='text-align: center;'><button type='button' class='btn'  id='b-"+slug+"' onclick='var r = \"Remove\"; var a = \"Add\"; addSpell(\""+name+"\"); $(\"#b-"+slug+"\").html((hasSpell(\""+name+"\") ? r : a))'>"+(hasSpell(name) ? "Remove" : "Add")+"</button>";
+        ans+="<td id='a-"+slug+"' style='text-align: right; padding-right: 15px'>" + generateActions(slug, name) + "</td>";
         ans+="</tr>";
 
         ans+="<tr id=\"full-"+slug+"\" class='collapse spell-info' style='display:none;'><td colspan='100%' style='width:1em;' class='row'><blockquote><div class='col l8'>";
@@ -376,6 +395,57 @@ function generateTable() {
     ans+="</table>";
     $(".table").html(ans);
     $(".button-collapse")
+
+    const colouredSpells = getSpells().colours;
+    if(colouredSpells != undefined){
+        for(let s of Object.keys(colouredSpells)){
+            updateRowColour(spells[s].slug, s, colouredSpells[s]);
+        }
+    }
+}
+
+function generateActions(slug, name){
+    let ans = "";
+    if(hasSpell(name))
+        ans += "<button type='button' class='btn' onclick='changeColourAction(\""+slug+"\", \""+name+"\")'><i class='material-icons'>colorize</i></button>";
+    ans += "<button type='button' class='btn' onclick='addSpellAction(\""+slug+"\", \""+name+"\")'>"+(hasSpell(name) ? "<i class='material-icons'>remove</i>" : "<i class='material-icons'>add</i>")+"</button>";
+    return ans;
+
+}
+
+function addSpellAction(slug, name){
+    addSpell(name);
+    $("#a-"+slug).html(generateActions(slug, name));
+    updateRowColour(slug, name, undefined);
+}
+
+function changeColourAction(slug, name){
+    const colours = getSpells().colours;
+    const defaultValue = (colours == undefined || colours[name] == undefined) ? "" : colours[name];
+
+    const newColour = prompt("Type a valid HTML colour to change the tint colour, or leave it blank to have no tint.", defaultValue);
+    if(newColour == null)
+        return;
+
+    if(!CSS.supports("background-color", newColour) && newColour != ""){
+        alert("Given input is not a valid HTML colour");
+        return;
+    }
+
+    setSpellColour(name, newColour);
+    updateRowColour(slug, name, newColour);
+}
+
+function updateRowColour(slug, spellName, tintColour) {
+    const row = currentTableSpells.indexOf(spellName);
+    if(row < 0)
+        return;
+
+    const colours = getSpells().colours;
+    const baseColour = row % 2 == 0 ? "#ffffff" : "#f4f4f4";
+    const backgroundColour = tintColour == undefined ? baseColour : "color-mix(in srgb, "+baseColour+", "+tintColour+" 25%)";
+    
+    $("#row-" + slug).css("background-color", backgroundColour);
 }
 
 function generateOptions(){
@@ -457,6 +527,7 @@ var filters = {
 };
 
 var view = "spells";
+var currentTableSpells = [];
 
 getJSONData();
 initOptions();
