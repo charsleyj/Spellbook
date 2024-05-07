@@ -179,6 +179,7 @@ function saveSpellbook(name) {
         var s = spellbooks[i];
         if (s.name == name) {
             s.spells = sb.spells;
+            s.colours = sb.colours;
             contains = true;
         }
     }
