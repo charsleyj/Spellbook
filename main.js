@@ -124,7 +124,7 @@ function clearFilters(){
 
 // Spells Functions
 
-function createSpellbook(spells, name = "", colours = null){
+function createSpellbook(spells, name = "New", colours = null){
     let obj = {};
     obj.name = name;
     obj.spells = spells;
@@ -185,6 +185,8 @@ function saveSpellbook(name) {
     if (!contains) {
         spellbooks.push(createSpellbook(sb.spells, name, sb.colours));
     }
+    sb.name = name;
+    saveData(CURRENT_DATA, sb);
     saveData(SPELLBOOKS_DATA, spellbooks);
     generateSpellbooks();
 }
@@ -208,17 +210,17 @@ function deleteSpellbook(name) {
 }
 
 function saveCurrentBook() {
-    var name = prompt("Choose a name for the spellbook.", "My Spellbook");
+    var name = prompt("Choose a name for the spellbook.", getSpells().name);
     if (name==null || name.length==0) return;
     saveSpellbook(name);
 }
 
 function loadSpellbook(name) {
-    if (!confirm("Are you sure you want to load spellbook \""+name+"\"? This will clear the current spellbook.")) return;
+    if (!confirm("Are you sure you want to load spellbook \""+name+"\"? This will clear the current spellbook and any changes will be lost.")) return;
     var spellbooks = getSpellbooks();
     for (var i = 0; i<spellbooks.length; i++) {
         if (spellbooks[i].name == name) {
-            saveData(CURRENT_DATA, createSpellbook(spellbooks[i].spells, "", spellbooks[i].colours));
+            saveData(CURRENT_DATA, spellbooks[i]);
             generateSpellbooks();
             return;
         }
@@ -284,7 +286,7 @@ function generateSpellbooks() {
 
     ans+="<div class='container'>";
 
-    ans+="<div class='card' style='text-align: center'><button type='button' class='btn' onclick='saveCurrentBook();'>Save Spellbook As...</button> <button type='button' class='btn' onclick='clearSpells();'>Clear Spells</button> <button type='button' class='btn' onclick='saveToClipboard();'>Save to Clipboard</button> <h1 class='sb-name'>Current Spellbook</h1>";
+    ans+="<div class='card' style='text-align: center'><button type='button' class='btn' onclick='saveCurrentBook();'>Save Spellbook As...</button> <button type='button' class='btn' onclick='clearSpells();'>Clear Spellbook</button> <button type='button' class='btn' onclick='saveToClipboard();'>Save to Clipboard</button> <h1 class='sb-name'>Current: "+spellList.name+"</h1>";
     ans+=generateSpellNames(spellList.spells)+"</div>";
 
     for (var i = 0; i<spellbooks.length; i++) {
